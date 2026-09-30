@@ -1,6 +1,6 @@
 # Cebu Survival Guide (Blazor)
 
-Requires the .NET 8 SDK.
+Requires the .NET 10 SDK.
 
     dotnet run
 
