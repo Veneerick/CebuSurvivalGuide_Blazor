@@ -1,0 +1,31 @@
+@page "/services"
+@inject IGuideDataService Data
+<PageTitle>Essential Services · Cebu Survival Guide</PageTitle>
+
+<div class="title">
+    <h1>Essential Services</h1>
+    <p>Important emergency contacts and services in Cebu.</p>
+</div>
+
+<div class="grid g2" style="margin-top:22px">
+    @foreach (var s in Data.EmergencyServices)
+    {
+        <div class="card svc">
+            <div class="ic red"><Icon Name="@s.Icon" /></div>
+            <h3>@s.Name</h3>
+            <div class="num">@s.Number</div>
+            <p>@s.Description</p>
+            <a class="btn r" href="tel:@s.Number"><Icon Name="phone" /> Call Now</a>
+        </div>
+    }
+</div>
+
+<div class="note"><b>Tip:</b> 911 is the national emergency hotline. Please confirm local numbers with official sources before relying on them.</div>
+
+<h2 class="sec">Non-emergency services</h2>
+<div class="grid g2">
+    @foreach (var o in Data.OtherServices)
+    {
+        <div class="card ne"><div class="ic"><Icon Name="@o.Icon" /></div><span><b>@o.Name</b><small>@o.Description</small></span></div>
+    }
+</div>

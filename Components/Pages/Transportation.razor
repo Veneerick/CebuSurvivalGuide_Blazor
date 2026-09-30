@@ -1,0 +1,98 @@
+@page "/transportation"
+@inject IGuideDataService Data
+<PageTitle>Transportation · Cebu Survival Guide</PageTitle>
+
+<div class="title">
+    <h1>Jeepney Routes &amp; Transportation</h1>
+    <p>Find jeepney routes and transportation information around Cebu.</p>
+</div>
+
+<div class="search">
+    <Icon Name="search" />
+    <input @bind="query" @bind:event="oninput" @onkeydown="OnKey"
+           placeholder="Search for a location or route (e.g. Colon, IT Park, Ayala)" aria-label="Search" />
+    <button class="btn p" style="padding:9px 18px" @onclick="Search">Search</button>
+</div>
+
+<div class="chips">
+    @foreach (var r in Data.SearchRoutes(query))
+    {
+        <button class="chip @(r == selected ? "sel" : "")" @onclick="() => selected = r">
+            <i class="dot" style="background:@r.Color"></i>@r.Code · @r.From–@r.To
+        </button>
+    }
+</div>
+
+<div class="map-wrap">
+    <div class="map">
+        <div class="ctl">
+            <button aria-label="Zoom in">+</button>
+            <button aria-label="Zoom out">−</button>
+            <button aria-label="Locate me">GPS</button>
+        </div>
+        <svg viewBox="0 0 700 460" role="img" aria-label="Simplified map of Cebu City jeepney routes">
+            <path d="M0 380 Q140 350 260 400 T520 430 T700 400 V460 H0Z" fill="#1C90F7" opacity=".35" />
+            <g stroke="var(--line)" stroke-width="2" fill="none"><path d="M40 60H660M40 160H660M40 260H660M120 20V440M300 20V440M480 20V440" /></g>
+            @foreach (var r in Data.Routes)
+            {
+                <path class="casing" d="@r.PathData" />
+                <path class="route @(r == selected ? "sel" : "")" stroke="@r.Color" d="@r.PathData" @onclick="() => selected = r" />
+            }
+            @foreach (var l in Data.Landmarks)
+            {
+                <rect x="@(l.X - 7)" y="@(l.Y - 7)" width="14" height="14" fill="#F9E901" stroke="#111" stroke-width="3" />
+                @((MarkupString)$"<text class=\"lbl\" x=\"{l.X + 12}\" y=\"{l.Y + 4}\">{System.Net.WebUtility.HtmlEncode(l.Name)}</text>")
+            }
+        </svg>
+    </div>
+
+    <aside class="card">
+        @if (selected is null)
+        {
+            <p>Select a route on the map to see details.</p>
+        }
+        else
+        {
+            <div class="status">@(selected.Running ? "Running today" : "Not running")</div>
+            <h3 style="margin-top:8px">Route Information</h3>
+            <dl>
+                <dt>Route</dt><dd>@selected.Code</dd>
+                <dt>From</dt><dd>@selected.From</dd>
+                <dt>To</dt><dd>@selected.To</dd>
+                <dt>Via</dt><dd>@selected.Via</dd>
+            </dl>
+            <button class="btn p" style="width:100%" disabled="@(!selected.Running)" @onclick="ViewRoute">View Route</button>
+        }
+    </aside>
+</div>
+
+<h2 class="sec">Ways to get around</h2>
+<div class="grid g4 q">
+    @foreach (var t in Data.TransportTypes)
+    {
+        <div class="card tr"><div class="ic"><Icon Name="@t.Icon" /></div><h3>@t.Name</h3><p>@t.Description</p></div>
+    }
+</div>
+
+@code {
+    private string? query;
+    private JeepneyRoute? selected;
+
+    protected override void OnInitialized() => selected = Data.Routes.FirstOrDefault();
+
+    private void Search()
+    {
+        var first = Data.SearchRoutes(query).FirstOrDefault();
+        if (first is not null) selected = first;
+    }
+
+    private void OnKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") Search();
+    }
+
+    private void ViewRoute()
+    {
+        // Hook for the next step: navigate to a detail page, e.g. NavigationManager.NavigateTo($"route/{selected.Code}")
+    }
+}

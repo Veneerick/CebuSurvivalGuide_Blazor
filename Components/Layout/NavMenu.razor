@@ -1,0 +1,12 @@
+<button class="menu" aria-label="Menu" @onclick="Toggle">Menu</button>
+<nav class="@(open ? "open" : "")">
+    <NavLink href="" Match="NavLinkMatch.All" @onclick="Close">Home</NavLink>
+    <NavLink href="transportation" @onclick="Close">Transportation</NavLink>
+    <NavLink class="em" href="services" @onclick="Close">Essential Services</NavLink>
+</nav>
+
+@code {
+    private bool open;
+    private void Toggle() => open = !open;
+    private void Close() => open = false;
+}
