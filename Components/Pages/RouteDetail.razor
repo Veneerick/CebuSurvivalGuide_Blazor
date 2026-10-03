@@ -1,0 +1,45 @@
+@page "/transportation/{Code}"
+@inject IGuideDataService Data
+<PageTitle>Route @Code · Cebu Survival Guide</PageTitle>
+
+<a class="btn mb-6" href="transportation">&larr; Back to map</a>
+
+@if (route is null)
+{
+    <h1 class="text-3xl font-black">Route not found</h1>
+    <p class="mt-2 text-neutral-700">We couldn't find a route called "@Code".</p>
+}
+else
+{
+    <h1 class="text-[clamp(1.75rem,4vw,2.6rem)] font-black tracking-tight">Route @route.Code</h1>
+    <p class="mt-1.5 text-neutral-700">@route.From to @route.To via @route.Via</p>
+
+    <div class="mt-6 grid gap-5 lg:grid-cols-[1fr_320px]">
+        <ol class="card">
+            @for (var i = 0; i < route.Stops.Count; i++)
+            {
+                <li class="flex items-center gap-4 py-3 @(i < route.Stops.Count - 1 ? "border-b-2 border-ink/15" : "")">
+                    <span class="grid size-9 flex-none place-items-center border-2 border-ink font-black" style="background:@route.Color">@(i + 1)</span>
+                    <span class="font-bold">@route.Stops[i]</span>
+                    @if (i == 0) { <span class="ml-auto border-2 border-ink bg-grn px-2 text-xs font-extrabold">START</span> }
+                    @if (i == route.Stops.Count - 1) { <span class="ml-auto border-2 border-ink bg-amb px-2 text-xs font-extrabold">END</span> }
+                </li>
+            }
+        </ol>
+        <aside class="card h-fit">
+            <h2 class="text-xl font-extrabold">Trip summary</h2>
+            <dl class="my-3.5 grid grid-cols-[auto_1fr] gap-x-3.5 gap-y-2 text-[15px]">
+                <dt class="text-neutral-700">Stops</dt><dd class="font-extrabold">@route.Stops.Count</dd>
+                <dt class="text-neutral-700">Status</dt><dd class="font-extrabold">@(route.Running ? "Running today" : "Not running")</dd>
+            </dl>
+            <p class="text-sm text-neutral-700">Stops shown are sample data. Confirm with the driver before boarding.</p>
+        </aside>
+    </div>
+}
+
+@code {
+    [Parameter] public string Code { get; set; } = "";
+    private JeepneyRoute? route;
+
+    protected override void OnParametersSet() => route = Data.GetRoute(Code);
+}
