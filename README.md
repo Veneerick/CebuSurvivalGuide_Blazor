@@ -1,7 +1,9 @@
-# Cebu Survival Guide (Blazor)
+# Cebu Survival Guide (Blazor + Tailwind)
 
-Requires the .NET 10 SDK.
+Requires the .NET SDK and Node.js.
 
+    npm install
+    npm run css        (or: npm run css:watch while editing)
     dotnet run
 
-Then open the URL shown in the terminal.
+Tailwind input is Styles/app.css and the generated output is wwwroot/tailwind.css.

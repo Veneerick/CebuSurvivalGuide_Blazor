@@ -1,47 +1,46 @@
 @page "/transportation"
 @inject IGuideDataService Data
+@inject NavigationManager Nav
 <PageTitle>Transportation · Cebu Survival Guide</PageTitle>
 
-<div class="title">
-    <h1>Jeepney Routes &amp; Transportation</h1>
-    <p>Find jeepney routes and transportation information around Cebu.</p>
-</div>
+<h1 class="text-[clamp(1.75rem,4vw,2.6rem)] font-black tracking-tight">Jeepney Routes &amp; Transportation</h1>
+<p class="mt-1.5 text-neutral-700">Find jeepney routes and transportation information around Cebu.</p>
 
-<div class="search">
+<div class="mt-6 mb-4 flex items-center gap-2.5 border-[3px] border-ink bg-white py-1.5 pr-1.5 pl-3.5 shadow-hard">
     <Icon Name="search" />
-    <input @bind="query" @bind:event="oninput" @onkeydown="OnKey"
+    <input class="min-w-0 flex-1 bg-transparent py-2.5 outline-none" @bind="query" @bind:event="oninput" @onkeydown="OnKey"
            placeholder="Search for a location or route (e.g. Colon, IT Park, Ayala)" aria-label="Search" />
-    <button class="btn p" style="padding:9px 18px" @onclick="Search">Search</button>
+    <button class="btn btn-blue shadow-none" @onclick="Search">Search</button>
 </div>
 
-<div class="chips">
+<div class="mb-4 flex flex-wrap gap-2.5">
     @foreach (var r in Data.SearchRoutes(query))
     {
-        <button class="chip @(r == selected ? "sel" : "")" @onclick="() => selected = r">
-            <i class="dot" style="background:@r.Color"></i>@r.Code · @r.From–@r.To
+        <button class="flex items-center gap-2 border-2 border-ink px-3 py-1.5 text-[13px] font-bold hover:bg-paper @(r == selected ? "bg-yel shadow-[3px_3px_0_var(--color-ink)]" : "bg-white")" @onclick="() => selected = r">
+            <i class="inline-block size-3 border-2 border-ink" style="background:@r.Color"></i>@r.Code · @r.From–@r.To
         </button>
     }
 </div>
 
-<div class="map-wrap">
-    <div class="map">
-        <div class="ctl">
-            <button aria-label="Zoom in">+</button>
-            <button aria-label="Zoom out">−</button>
-            <button aria-label="Locate me">GPS</button>
+<div class="grid gap-5 lg:grid-cols-[1fr_320px]">
+    <div class="relative min-h-[340px] overflow-hidden border-[3px] border-ink bg-land shadow-hard sm:min-h-[440px]">
+        <div class="absolute top-3 right-3 flex flex-col gap-1.5">
+            <button class="h-10 min-w-10 border-2 border-ink bg-amb text-sm font-extrabold hover:bg-yel" aria-label="Zoom in">+</button>
+            <button class="h-10 min-w-10 border-2 border-ink bg-amb text-sm font-extrabold hover:bg-yel" aria-label="Zoom out">−</button>
+            <button class="h-10 min-w-10 border-2 border-ink bg-amb text-sm font-extrabold hover:bg-yel" aria-label="Locate me">GPS</button>
         </div>
-        <svg viewBox="0 0 700 460" role="img" aria-label="Simplified map of Cebu City jeepney routes">
-            <path d="M0 380 Q140 350 260 400 T520 430 T700 400 V460 H0Z" fill="#1C90F7" opacity=".35" />
-            <g stroke="var(--line)" stroke-width="2" fill="none"><path d="M40 60H660M40 160H660M40 260H660M120 20V440M300 20V440M480 20V440" /></g>
+        <svg class="block size-full" viewBox="0 0 700 460" role="img" aria-label="Simplified map of Cebu City jeepney routes">
+            <path d="M0 380 Q140 350 260 400 T520 430 T700 400 V460 H0Z" class="fill-blu opacity-35" />
+            <path d="M40 60H660M40 160H660M40 260H660M120 20V440M300 20V440M480 20V440" class="fill-none stroke-ink/15" stroke-width="2" />
             @foreach (var r in Data.Routes)
             {
-                <path class="casing" d="@r.PathData" />
-                <path class="route @(r == selected ? "sel" : "")" stroke="@r.Color" d="@r.PathData" @onclick="() => selected = r" />
+                <path d="@r.PathData" class="pointer-events-none fill-none stroke-ink" stroke-width="11" stroke-linecap="square" />
+                <path d="@r.PathData" class="cursor-pointer fill-none" stroke="@r.Color" stroke-width="@(r == selected ? 8 : 6)" stroke-linecap="square" @onclick="() => selected = r" />
             }
             @foreach (var l in Data.Landmarks)
             {
-                <rect x="@(l.X - 7)" y="@(l.Y - 7)" width="14" height="14" fill="#F9E901" stroke="#111" stroke-width="3" />
-                @((MarkupString)$"<text class=\"lbl\" x=\"{l.X + 12}\" y=\"{l.Y + 4}\">{System.Net.WebUtility.HtmlEncode(l.Name)}</text>")
+                <rect x="@(l.X - 7)" y="@(l.Y - 7)" width="14" height="14" class="fill-yel stroke-ink" stroke-width="3" />
+                @((MarkupString)$"<text class=\"fill-ink text-[13px] font-extrabold [paint-order:stroke] stroke-land\" stroke-width=\"4\" x=\"{l.X + 12}\" y=\"{l.Y + 4}\">{System.Net.WebUtility.HtmlEncode(l.Name)}</text>")
             }
         </svg>
     </div>
@@ -53,28 +52,29 @@
         }
         else
         {
-            <div class="status">@(selected.Running ? "Running today" : "Not running")</div>
-            <h3 style="margin-top:8px">Route Information</h3>
-            <dl>
-                <dt>Route</dt><dd>@selected.Code</dd>
-                <dt>From</dt><dd>@selected.From</dd>
-                <dt>To</dt><dd>@selected.To</dd>
-                <dt>Via</dt><dd>@selected.Via</dd>
+            <div class="inline-flex items-center gap-2 border-2 border-ink bg-grn px-2.5 py-0.5 text-[13px] font-extrabold">@(selected.Running ? "Running today" : "Not running")</div>
+            <h3 class="mt-2 text-xl font-extrabold">Route Information</h3>
+            <dl class="my-3.5 grid grid-cols-[auto_1fr] gap-x-3.5 gap-y-2 text-[15px]">
+                <dt class="text-neutral-700">Route</dt><dd class="font-extrabold">@selected.Code</dd>
+                <dt class="text-neutral-700">From</dt><dd class="font-extrabold">@selected.From</dd>
+                <dt class="text-neutral-700">To</dt><dd class="font-extrabold">@selected.To</dd>
+                <dt class="text-neutral-700">Via</dt><dd class="font-extrabold">@selected.Via</dd>
             </dl>
-            <button class="btn p" style="width:100%" disabled="@(!selected.Running)" @onclick="ViewRoute">View Route</button>
+            <button class="btn btn-blue w-full" disabled="@(!selected.Running)" @onclick="ViewRoute">View Route</button>
         }
     </aside>
 </div>
 
 <h2 class="sec">Ways to get around</h2>
-<div class="grid g4 q">
-    @foreach (var t in Data.TransportTypes)
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    @foreach (var (t, i) in Data.TransportTypes.Select((t, i) => (t, i)))
     {
-        <div class="card tr"><div class="ic"><Icon Name="@t.Icon" /></div><h3>@t.Name</h3><p>@t.Description</p></div>
+        <div class="card px-3 py-5 text-center"><div class="tile mx-auto @TileColors[i % 4]"><Icon Name="@t.Icon" /></div><h3 class="mt-3.5 mb-1.5 text-[17px] font-extrabold">@t.Name</h3><p class="text-neutral-700">@t.Description</p></div>
     }
 </div>
 
 @code {
+    private static readonly string[] TileColors = { "bg-mag text-white", "bg-grn", "bg-amb", "bg-blu" };
     private string? query;
     private JeepneyRoute? selected;
 
@@ -93,6 +93,6 @@
 
     private void ViewRoute()
     {
-        // Hook for the next step: navigate to a detail page, e.g. NavigationManager.NavigateTo($"route/{selected.Code}")
+        if (selected is not null) Nav.NavigateTo($"transportation/{selected.Code}");
     }
 }

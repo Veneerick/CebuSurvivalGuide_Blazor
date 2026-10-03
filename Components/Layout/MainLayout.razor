@@ -1,12 +1,20 @@
 @inherits LayoutComponentBase
 
-<header>
-    <div class="bar">
-        <NavLink class="brand" href="" Match="NavLinkMatch.All">Cebu <span>Survival Guide</span></NavLink>
+<header class="sticky top-0 z-10 border-b-[3px] border-ink bg-white">
+    <div class="relative mx-auto flex max-w-[1120px] items-center justify-between px-5 py-3">
+        <NavLink class="text-xl font-black tracking-wide uppercase no-underline" href="" Match="NavLinkMatch.All">
+            Cebu <span class="bg-yel px-1.5">Survival Guide</span>
+        </NavLink>
         <NavMenu />
     </div>
+    <div class="palette-stripe h-2"></div>
 </header>
 
-<main>@Body</main>
+<main class="mx-auto max-w-[1120px] px-5 pt-7 pb-16">@Body</main>
 
-<footer>Cebu Survival Guide · Everything you need to navigate Cebu and find essential services in one place.</footer>
+<footer class="border-t-[3px] border-ink bg-white px-5 py-6 text-center text-sm text-neutral-700">
+    <div class="mb-3 flex flex-wrap justify-center gap-x-6 gap-y-2 font-bold text-ink">
+        <a href="">Home</a><a href="transportation">Transportation</a><a href="tips">Tips</a><a href="services">Essential Services</a>
+    </div>
+    Cebu Survival Guide · Everything you need to navigate Cebu and find essential services in one place.
+</footer>

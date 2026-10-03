@@ -1,11 +1,13 @@
-<button class="menu" aria-label="Menu" @onclick="Toggle">Menu</button>
-<nav class="@(open ? "open" : "")">
-    <NavLink href="" Match="NavLinkMatch.All" @onclick="Close">Home</NavLink>
-    <NavLink href="transportation" @onclick="Close">Transportation</NavLink>
-    <NavLink class="em" href="services" @onclick="Close">Essential Services</NavLink>
+<button class="border-2 border-ink bg-amb px-3.5 py-2 font-bold sm:hidden" aria-label="Menu" aria-expanded="@open" @onclick="Toggle">Menu</button>
+<nav class="@(open ? "flex" : "hidden") absolute inset-x-0 top-full flex-col gap-2 border-b-[3px] border-ink bg-white px-5 pt-2 pb-4 sm:static sm:flex sm:flex-row sm:border-0 sm:p-0">
+    <NavLink class="@Link" ActiveClass="bg-yel border-ink!" href="" Match="NavLinkMatch.All" @onclick="Close">Home</NavLink>
+    <NavLink class="@Link" ActiveClass="bg-yel border-ink!" href="transportation" @onclick="Close">Transportation</NavLink>
+    <NavLink class="@Link" ActiveClass="bg-yel border-ink!" href="tips" @onclick="Close">Tips</NavLink>
+    <NavLink class="@Link" ActiveClass="bg-sos text-white border-ink!" href="services" @onclick="Close">Essential Services</NavLink>
 </nav>
 
 @code {
+    private const string Link = "block border-2 border-transparent px-3.5 py-2 font-bold no-underline hover:border-ink hover:bg-paper";
     private bool open;
     private void Toggle() => open = !open;
     private void Close() => open = false;

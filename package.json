@@ -1,0 +1,12 @@
+{
+  "name": "cebu-survival-guide",
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i ./Styles/app.css -o ./wwwroot/tailwind.css --minify",
+    "css:watch": "tailwindcss -i ./Styles/app.css -o ./wwwroot/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

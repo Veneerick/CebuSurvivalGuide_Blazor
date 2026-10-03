@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CebuSurvivalGuide")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e14e2cc9c4516378c5cc453c260af5b549d6b88")]
 [assembly: System.Reflection.AssemblyProductAttribute("CebuSurvivalGuide")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CebuSurvivalGuide")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

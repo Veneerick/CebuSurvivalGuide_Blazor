@@ -1,6 +1,0 @@
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\CebuSurvivalGuide.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\CebuSurvivalGuide.AssemblyInfoInputs.cache
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\CebuSurvivalGuide.AssemblyInfo.cs
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\CebuSurvivalGuide.csproj.CoreCompileInputs.cache
-C:\Users\ACER\Downloads\CebuSurvivalGuide\obj\Debug\net8.0\CebuSurvivalGuide.MvcApplicationPartsAssemblyInfo.cache

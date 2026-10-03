@@ -1,25 +1,25 @@
 @page "/"
 <PageTitle>Cebu Survival Guide</PageTitle>
 
-<section class="hero">
-    <h1>Your Guide to Everything Cebu.</h1>
-    <p>Find jeepney routes, transportation information, and everything else in one place.</p>
-    <div class="row">
-        <a class="btn p" href="transportation">Explore Transportation</a>
-        <a class="btn s" href="services">Emergency Services</a>
+<section class="mt-2.5 mb-10 border-[3px] border-ink bg-yel px-5 py-7 shadow-hero sm:px-9 sm:py-11">
+    <h1 class="max-w-[14ch] text-[clamp(2.1rem,6vw,3.75rem)] leading-[1.05] font-black tracking-tight">Your Guide to Getting Around Cebu.</h1>
+    <p class="mt-4 mb-6 max-w-[620px] text-xl">Find jeepney routes, transportation information, and essential emergency services in one place.</p>
+    <div class="flex flex-wrap gap-3.5">
+        <a class="btn btn-blue w-full sm:w-auto" href="transportation">Explore Transportation</a>
+        <a class="btn w-full sm:w-auto" href="services">Emergency Services</a>
     </div>
 </section>
 
-<div class="grid g3">
-    <div class="card"><div class="ic"><Icon Name="bus" /></div><h3>Transportation</h3><p>Find jeepney routes and transportation information around Cebu.</p></div>
-    <div class="card"><div class="ic"><Icon Name="cross" /></div><h3>Essential Services</h3><p>Quickly find important emergency contacts and public services.</p></div>
-    <div class="card"><div class="ic"><Icon Name="pin" /></div><h3>Cebu Guide</h3><p>Access useful information for navigating Cebu safely and efficiently.</p></div>
+<div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <div class="card"><div class="tile bg-blu"><Icon Name="bus" /></div><h3 class="mt-3.5 mb-1.5 text-xl font-extrabold">Transportation</h3><p class="text-neutral-700">Find jeepney routes and transportation information around Cebu.</p></div>
+    <div class="card"><div class="tile bg-grn"><Icon Name="cross" /></div><h3 class="mt-3.5 mb-1.5 text-xl font-extrabold">Essential Services</h3><p class="text-neutral-700">Quickly find important emergency contacts and public services.</p></div>
+    <div class="card"><div class="tile bg-mag text-white"><Icon Name="pin" /></div><h3 class="mt-3.5 mb-1.5 text-xl font-extrabold">Cebu Guide</h3><p class="text-neutral-700">Access useful information for navigating Cebu safely and efficiently.</p></div>
 </div>
 
 <h2 class="sec">Quick Access</h2>
-<div class="grid g4 q">
-    <a class="card quick" href="transportation"><div class="ic"><Icon Name="map" /></div><span><b>Jeepney Map</b><small>Routes &amp; stops</small></span></a>
-    <a class="card quick e" href="services"><div class="ic red"><Icon Name="shield" /></div><span><b>Police</b><small>Call 911</small></span></a>
-    <a class="card quick e" href="services"><div class="ic red"><Icon Name="flame" /></div><span><b>Fire Department</b><small>Call 911</small></span></a>
-    <a class="card quick e" href="services"><div class="ic red"><Icon Name="medical" /></div><span><b>Emergency</b><small>Ambulance &amp; medical</small></span></a>
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <a class="card flex items-center gap-3.5 p-4 no-underline hover:bg-yel" href="transportation"><div class="tile bg-blu"><Icon Name="map" /></div><span><b class="block">Jeepney Map</b><small class="text-neutral-700">Routes &amp; stops</small></span></a>
+    <a class="card flex items-center gap-3.5 p-4 no-underline hover:bg-red-100" href="services"><div class="tile bg-sos text-white"><Icon Name="shield" /></div><span><b class="block">Police</b><small class="text-neutral-700">Call 911</small></span></a>
+    <a class="card flex items-center gap-3.5 p-4 no-underline hover:bg-red-100" href="services"><div class="tile bg-sos text-white"><Icon Name="flame" /></div><span><b class="block">Fire Department</b><small class="text-neutral-700">Call 911</small></span></a>
+    <a class="card flex items-center gap-3.5 p-4 no-underline hover:bg-red-100" href="services"><div class="tile bg-sos text-white"><Icon Name="medical" /></div><span><b class="block">Emergency</b><small class="text-neutral-700">Ambulance &amp; medical</small></span></a>
 </div>
